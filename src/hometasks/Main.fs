@@ -55,34 +55,86 @@ module Say =
 
 module Main =
     open Argu
-
-    type CLIArguments =
-        | Info
-        | Version
-        | Favorite_Color of string // Look in App.config
-        | [<MainCommand>] Hello of string
-        interface IArgParserTemplate with
-            member s.Usage =
-                match s with
-                | Info -> "More detailed information"
-                | Version -> "Version of application"
-                | Favorite_Color _ -> "Favorite color"
-                | Hello _ -> "Who to say hello to"
-
-    [<EntryPoint>]
-    let main (argv: string array) =
-        let parser = ArgumentParser.Create<CLIArguments>(programName = "hometasks")
-        let results = parser.Parse(argv)
-        if results.Contains Version then
-            AssemblyInfo.printVersion()
-        elif results.Contains Info then
-            AssemblyInfo.printInfo()
-        elif results.Contains Hello then
-            match results.TryGetResult Hello with
-            | Some v ->
-                let color = results.GetResult Favorite_Color
-                Say.hello v |> Say.colorizeIn color
-            | None -> parser.PrintUsage() |> printfn "%s"
-        else
-            parser.PrintUsage() |> printfn "%s"
-        0
+    open System
+    
+    
+        type CLIArguments =
+            | Subtask_1 
+            | Subtask_2
+            | Subtask_3
+            | Subtask_4
+            | Subtask_5
+            | Subtask_6
+            interface IArgParserTemplate with
+                member s.Usage =
+                    match s with
+                    | Subtask_1 -> "run Subtask_1"
+                    | Subtask_2 -> "run Subtask_2"
+                    | Subtask_3 -> "run Subtask_3"
+                    | Subtask_4 -> "run Subtask_4"
+                    | Subtask_5 -> "run Subtask_5"
+                    | Subtask_6 -> "run Subtask_6"
+    
+        [<EntryPoint>]
+        let main (argv: string array) =
+            let parser = ArgumentParser.Create<CLIArguments>(programName = "hometasks")
+    
+    
+            let results = parser.Parse(argv)
+            if results.Contains Subtask_1 then
+    
+                printf "Enter the number: "
+                let number = Console.ReadLine() |> float
+                let current = hometasks.Hometask_2.Subtask_1 number
+                printfn "The result of doing first subtask. = %A" current
+    
+            elif results.Contains Subtask_2 then
+    
+                printf "Enter the number: "     
+                let number = Console.ReadLine() |> float
+                let current = hometasks.Hometask_2.Subtask_2 number
+                printfn "The result of doing second subtask. = %A" current
+    
+            elif results.Contains Subtask_3 then
+    
+                printf "Enter amount of array elements: "
+                let amount_of_elements = Console.ReadLine() |> int
+                let create_array: int array = hometasks.Hometask_2.create_array amount_of_elements
+                printf "Enter a number that the array elements must not be larger than: "
+                let maximum = Console.ReadLine() |> int
+                let Subtask_3_array = hometasks.Hometask_2.Subtask_3 create_array amount_of_elements maximum
+                printfn "%A" Subtask_3_array
+    
+            elif results.Contains Subtask_4 then
+    
+                printf "Enter amount of array elements: "
+                let amount_of_elements = Console.ReadLine() |> int
+                let create_array: int array = hometasks.Hometask_2.create_array amount_of_elements
+                printf "Enter left limit of the range:"
+                let left_limit =  Console.ReadLine() |> int
+                printf "Enter right limit of the range:"
+                let right_limit =  Console.ReadLine() |> int
+                let Subtask_4_array = hometasks.Hometask_2.Subtask_4 create_array left_limit right_limit amount_of_elements
+                printf "Indices of array elements that out-of-range: "
+                printfn "%A" Subtask_4_array
+            elif results.Contains Subtask_5 then
+                let amount_of_elements = 2
+                let random_array: int array = hometasks.Hometask_2.create_array amount_of_elements
+                let Subtask_5_array = hometasks.Hometask_2.Subtask_5 random_array
+                printf "Changed array: "
+                printfn "%A" Subtask_5_array
+            elif results.Contains Subtask_6 then
+                printf "Enter amount of array elements: "
+                let amount_of_elements = Console.ReadLine() |> int
+                let created_array: int array = hometasks.Hometask_2.create_array amount_of_elements
+                printf "Enter indices of array elements that needs to be replaced: "
+                let i =  Console.ReadLine() |> int
+                let j =  Console.ReadLine() |> int
+                if (i > -1) && (i < amount_of_elements) && (j > -1) && (j < amount_of_elements) && (i <> j) then
+                    let Subtask_6_array = hometasks.Hometask_2.Subtask_6 created_array i j
+                    printfn "Changed array: "
+                    printfn "%A" Subtask_6_array
+                else printf "You entered indices not correctly"
+            else
+                parser.PrintUsage() |> printfn "%s"
+            0
