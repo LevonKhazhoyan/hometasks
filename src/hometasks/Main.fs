@@ -56,7 +56,9 @@ module Say =
 module Main =
     open Argu
     open System
-    
+
+
+
     
         type CLIArguments =
             | Subtask_1 
@@ -79,7 +81,6 @@ module Main =
         let main (argv: string array) =
             let parser = ArgumentParser.Create<CLIArguments>(programName = "hometasks")
     
-    
             let results = parser.Parse(argv)
             if results.Contains Subtask_1 then
     
@@ -97,44 +98,49 @@ module Main =
     
             elif results.Contains Subtask_3 then
     
-                printf "Enter amount of array elements: "
+                printf "Enter a number of array elements: "
                 let amount_of_elements = Console.ReadLine() |> int
-                let create_array: int array = hometasks.Hometask_2.create_array amount_of_elements
+                let random_array: int array = hometasks.Hometask_2.create_array amount_of_elements
                 printf "Enter a number that the array elements must not be larger than: "
                 let maximum = Console.ReadLine() |> int
-                let Subtask_3_array = hometasks.Hometask_2.Subtask_3 create_array amount_of_elements maximum
-                printfn "%A" Subtask_3_array
+                let result = hometasks.Hometask_2.Subtask_3 random_array maximum
+                printfn "%A" result
     
             elif results.Contains Subtask_4 then
     
                 printf "Enter amount of array elements: "
                 let amount_of_elements = Console.ReadLine() |> int
-                let create_array: int array = hometasks.Hometask_2.create_array amount_of_elements
+                let random_array: int array = hometasks.Hometask_2.create_array amount_of_elements
                 printf "Enter left limit of the range:"
                 let left_limit =  Console.ReadLine() |> int
                 printf "Enter right limit of the range:"
                 let right_limit =  Console.ReadLine() |> int
-                let Subtask_4_array = hometasks.Hometask_2.Subtask_4 create_array left_limit right_limit amount_of_elements
+                let result = hometasks.Hometask_2.Subtask_4 random_array left_limit right_limit
                 printf "Indices of array elements that out-of-range: "
-                printfn "%A" Subtask_4_array
+                printfn "%A" result
+
             elif results.Contains Subtask_5 then
+
                 let amount_of_elements = 2
                 let random_array: int array = hometasks.Hometask_2.create_array amount_of_elements
-                let Subtask_5_array = hometasks.Hometask_2.Subtask_5 random_array
+                let result = hometasks.Hometask_2.Subtask_5 random_array
                 printf "Changed array: "
-                printfn "%A" Subtask_5_array
+                printfn "%A" result
+
             elif results.Contains Subtask_6 then
+
                 printf "Enter amount of array elements: "
                 let amount_of_elements = Console.ReadLine() |> int
-                let created_array: int array = hometasks.Hometask_2.create_array amount_of_elements
+                let random_array: int array = hometasks.Hometask_2.create_array amount_of_elements
                 printf "Enter indices of array elements that needs to be replaced: "
                 let i =  Console.ReadLine() |> int
                 let j =  Console.ReadLine() |> int
                 if (i > -1) && (i < amount_of_elements) && (j > -1) && (j < amount_of_elements) && (i <> j) then
-                    let Subtask_6_array = hometasks.Hometask_2.Subtask_6 created_array i j
+                    let result = hometasks.Hometask_2.Subtask_6 random_array i j
                     printfn "Changed array: "
-                    printfn "%A" Subtask_6_array
-                else printf "You entered indices not correctly"
+                    printfn "%A" result
+                else printf "You've entered incorrect indices"
+
             else
                 parser.PrintUsage() |> printfn "%s"
             0
