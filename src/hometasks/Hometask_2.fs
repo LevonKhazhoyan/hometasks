@@ -1,32 +1,31 @@
 namespace hometasks
 
-module Hometask_2 =
-   let Subtask_1 x =
+module Hometask2 =
+   let subtask1 x =
        x * x * x * x + x * x * x + x * x + x + 1.0
 
-   let Subtask_2 x =
+   let subtask2 x =
 
-       let x_squared = x * x
-       let x_plus_x_squared = x_squared + x
-       (x_squared + 1.0) * x_plus_x_squared + 1.0
+       let XSquared = x * x
+       let XPlusXSquared= XSquared + x
+       (XSquared + 1.0) * XPlusXSquared + 1.0
 
-   let create_array amount_of_elements =
+   let createArray amountOfElements =
    
        let genRandomNumbers count =
 
            let rnd = System.Random()
-           Array.init count (fun _ -> ((rnd.Next ())))
+           Array.init count (fun _ -> rnd.Next ())
 
-       let random_array = genRandomNumbers amount_of_elements
+       let randomArray = genRandomNumbers amountOfElements
+       printfn "%A" randomArray
+       randomArray
 
-       random_array
-
-   let Subtask_3 (xs: int array) maximum =
+   let subtask3 (xs: array<int>) maximum =
        let mutable j = 0    
        for i = 0 to xs.Length - 1 do
            if xs.[i] <= maximum
-           then
-               j <- j + 1
+           then j <- j + 1
 
        let indices = Array.zeroCreate j
        j <- 0
@@ -39,43 +38,38 @@ module Hometask_2 =
 
        indices    
        
-   let Subtask_4 (xs: int array) left_limit right_limit =
+   let subtask4 (xs: array<int>) leftLimit rightLimit =
        let mutable j = 0
 
        for i = 0 to xs.Length - 1 do
-          if xs.[i] < left_limit || xs.[i] > right_limit
-          then
-               j <- j + 1
+          if xs.[i] < leftLimit || xs.[i] > rightLimit
+          then j <- j + 1
 
        let indices = Array.zeroCreate j
        j <- 0
        
        for i = 0 to xs.Length - 1 do
 
-           if xs.[i] < left_limit || xs.[i] > right_limit
+           if xs.[i] < leftLimit || xs.[i] > rightLimit
            then
                indices.[j] <- i
                j <- j + 1
-
        indices
 
-   let Subtask_5 (xs: int array) =
+   let subtask5 (xs: array<int>) =
        if xs.Length <> 2
-       then [||]
-       else 
-
+       then failwith "expected array of size 2"
+       else
            xs.[0] <- xs.[0] ^^^ xs.[1]
            xs.[1] <- xs.[0] ^^^ xs.[1]
            xs.[0] <- xs.[0] ^^^ xs.[1]
-           xs
+       xs
 
-   let Subtask_6 (xs: int array) i j =
+   let subtask6 (xs: array<int>) i j =
         if i < 0 || j < 0 || i >= xs.Length || j >= xs.Length
-        then
-            [||]
-        else if i = j
-        then
-            xs
+        then failwith "indices are out of range"    
+        elif i = j
+        then xs
         else
             xs.[i] <- xs.[i] ^^^ xs.[j]
             xs.[j] <- xs.[i] ^^^ xs.[j]
