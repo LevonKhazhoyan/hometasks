@@ -57,9 +57,6 @@ module Main =
     open Argu
     open System
 
-
-
-    
         type CLIArguments =
             | Subtask1 
             | Subtask2
@@ -70,12 +67,12 @@ module Main =
             interface IArgParserTemplate with
                 member s.Usage =
                     match s with
-                    | Subtask1 -> "run Subtask_1"
-                    | Subtask2 -> "run Subtask_2"
-                    | Subtask3 -> "run Subtask_3"
-                    | Subtask4 -> "run Subtask_4"
-                    | Subtask5 -> "run Subtask_5"
-                    | Subtask6 -> "run Subtask_6"
+                    | Subtask1 -> "run Subtask1"
+                    | Subtask2 -> "run Subtask2"
+                    | Subtask3 -> "run Subtask3"
+                    | Subtask4 -> "run Subtask4"
+                    | Subtask5 -> "run Subtask5"
+                    | Subtask6 -> "run Subtask6"
     
         [<EntryPoint>]
         let main (argv: string array) =
@@ -116,8 +113,7 @@ module Main =
                 printf "Enter right limit of the range:"
                 let rightLimit =  Console.ReadLine() |> int
                 let result = hometasks.Hometask2.subtask4 randomArray leftLimit rightLimit
-                printf "Indices of array elements that out-of-range: "
-                printfn "%A" result
+                printf "Indices of array elements that out-of-range: %A" result
 
             elif results.Contains Subtask5 then
 
@@ -138,7 +134,6 @@ module Main =
                 let result = hometasks.Hometask2.subtask6 randomArray i j
                 printfn "Changed array: "
                 printfn "%A" result
- 
 
             else
                 parser.PrintUsage() |> printfn "%s"

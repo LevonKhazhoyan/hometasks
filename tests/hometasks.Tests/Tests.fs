@@ -24,7 +24,7 @@ let tests = testList "all" [
             Expect.equal subject [| 0; 1; 2 |] "should return indices of all array numbers that lower than 5 "
         testCase "all numbers are higher" <| fun _ ->
             let subject = Hometask2.subtask3 [| -9; -6; 3; 6 |] -722
-            Expect.equal subject [||] "numbers is too big"
+            Expect.equal subject [||] "numbers are too big"
     ]
 
     testList "Subtask 4: find indices" [
@@ -72,7 +72,7 @@ let tests = testList "all" [
             Expect.throws (fun _ -> Hometask2.subtask6 [| 3; 4; 5; 10; 10; 42 |] 2 73  |> ignore) "index is out of bounds"
 
         testCase "should fail when an index is negative" <| fun _ ->
-            Expect.throws (fun _ -> Hometask2.subtask6 [|0; 3; 15|] -4 2  |> ignore) "you entered a negative index"
+            Expect.throws (fun _ -> Hometask2.subtask6 [|0; 3; 15|] -4 2  |> ignore) "index is out of bounds"
 
         testCase "should return same list when indices are equal" <| fun _ ->
             let subject = Hometask2.subtask6 [| 3; 4; 10; 30; 10; 42 |] 2 2
