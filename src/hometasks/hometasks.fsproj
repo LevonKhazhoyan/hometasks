@@ -16,6 +16,7 @@
     
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Hometask_2.fs" />
     <Compile Include="AssemblyInfo.fs" />
     <None Include="App.config" />
     <Compile Include="Main.fs" />
