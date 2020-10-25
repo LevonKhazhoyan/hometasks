@@ -8,98 +8,98 @@ let tests = testList "Hometask3" [
     testList "Subtask 1: fib number rec" [
 
         testCase "evals 2nd fib number" <| fun _ ->
-            let subject = Hometask3.subtask1 2
+            let subject = Hometask3.fibRec 2
             Expect.equal subject 1 "result must be equal to 1"
         testCase "evals 1st fib number" <| fun _ ->
-            let subject = Hometask3.subtask1 1
+            let subject = Hometask3.fibRec 1
             Expect.equal subject 1 "result must be equal to 1"
         testCase "evals 0 fib number" <| fun _ ->
-            let subject = Hometask3.subtask1 0
+            let subject = Hometask3.fibRec 0
             Expect.equal subject 0 "result must be equal to 0"
         testCase "evals 10th fib number" <| fun _ ->
-            let subject = Hometask3.subtask1 10
+            let subject = Hometask3.fibRec 10
             Expect.equal subject 55 "result must be equal to 55"
         testCase "evals 11th fib number" <| fun _ ->
-            let subject = Hometask3.subtask1 11
+            let subject = Hometask3.fibRec 11
             Expect.equal subject 89 "result must be equal to 89"
         testCase "n is negative fib number" <| fun _ ->
-            Expect.throws (fun _ -> Hometask3.subtask1 -3 |> ignore) "expected n >= 0"
+            Expect.throws (fun _ -> Hometask3.fibRec -3 |> ignore) "expected n >= 0"
 
 
     ]
     testList "Subtask 2: fib number iterative" [
 
         testCase "evals 1st fib number" <| fun _ ->
-            let subject = Hometask3.subtask2 1
+            let subject = Hometask3.fibIter 1
             Expect.equal subject 1 "result must be equal to 1"
 
         testCase "evals 0 fib number" <| fun _ ->
-            let subject = Hometask3.subtask2 0
+            let subject = Hometask3.fibIter 0
             Expect.equal subject 0 "result must be equal to 0"
 
         testCase "evals 5th fib number" <| fun _ ->
-            let subject = Hometask3.subtask2 5
+            let subject = Hometask3.fibIter 5
             Expect.equal subject 5 "result must be equal to 5"
 
         testCase "evals 2nd fib number" <| fun _ ->
-            let subject = Hometask3.subtask2 2
+            let subject = Hometask3.fibIter 2
             Expect.equal subject 1 "result must be equal to 1"
 
         testCase "evals 10th fib number" <| fun _ ->
-            let subject = Hometask3.subtask2 10
+            let subject = Hometask3.fibIter 10
             Expect.equal subject 55 "result must be equal to 55"
 
         testCase "n is negative fib number" <| fun _ ->
-            Expect.throws (fun _ -> Hometask3.subtask2 -3 |> ignore) "expected n >= 0"
+            Expect.throws (fun _ -> Hometask3.fibIter -3 |> ignore) "expected n >= 0"
     ]
     testList "Subtask 3: fib number iterative" [
 
         testCase "evals 1st fib number" <| fun _ ->
-            let subject = Hometask3.subtask3 1
+            let subject = Hometask3.fibTailRec 1
             Expect.equal subject 1 "result must be equal to 1"
 
         testCase "evals 2nd fib number" <| fun _ ->
-            let subject = Hometask3.subtask3 2
+            let subject = Hometask3.fibTailRec 2
             Expect.equal subject 1 "result must be equal to 1"
 
         testCase "evals 0 fib number" <| fun _ ->
-            let subject = Hometask3.subtask3 0
+            let subject = Hometask3.fibTailRec 0
             Expect.equal subject 0 "result must be equal to 1"
 
         testCase "evals 6th fib number" <| fun _ ->
-            let subject = Hometask3.subtask3 6
+            let subject = Hometask3.fibTailRec 6
             Expect.equal subject 8 "result must be equal to 8"
 
         testCase "evals 1th fib number" <| fun _ ->
-            let subject = Hometask3.subtask3 11
+            let subject = Hometask3.fibTailRec 11
             Expect.equal subject 89 "result must be equal to 89"
         testCase "n is negative fib number" <| fun _ ->
-            Expect.throws (fun _ -> Hometask3.subtask3 -3 |> ignore) "expected n >= 0"
+            Expect.throws (fun _ -> Hometask3.fibTailRec -3 |> ignore) "expected n >= 0"
     ]
     testList "Subtask 4: fib number matrix multiplication" [
 
         testCase "evals 0 fib number" <| fun _ ->
-            let subject = Hometask3.subtask4 0
+            let subject = Hometask3.fibByMultMatrices 0
             Expect.equal subject 0 "result must be equal to 1"
 
         testCase "evals 1st fib number" <| fun _ ->
-            let subject = Hometask3.subtask4 1
+            let subject = Hometask3.fibByMultMatrices 1
             Expect.equal subject 1 "result must be equal to 1"
 
         testCase "evals 5th fib number" <| fun _ ->
-            let subject = Hometask3.subtask4 5
+            let subject = Hometask3.fibByMultMatrices 5
             Expect.equal subject 5 "result must be equal to 5"
 
         testCase "evals 10th fib number" <| fun _ ->
-            let subject = Hometask3.subtask4 10
+            let subject = Hometask3.fibByMultMatrices 10
             Expect.equal subject 55 "result must be equal to 55"
 
         testCase "evals 32th fib number" <| fun _ ->
-            let subject = Hometask3.subtask4 32
+            let subject = Hometask3.fibByMultMatrices 32
             Expect.equal subject 2178309 "result must be equal to 2178309"
 
         testCase "n is negative fib number" <| fun _ ->
-            Expect.throws (fun _ -> Hometask3.subtask4 -3 |> ignore) "expected n >= 0"
+            Expect.throws (fun _ -> Hometask3.fibByMultMatrices -3 |> ignore) "expected n >= 0"
     ]
     testList "Side functions" [
 
@@ -160,56 +160,56 @@ let tests = testList "Hometask3" [
     testList "Subtask 5: fib number log matrix multiplication" [
 
         testCase "evals 18th fib number" <| fun _ ->
-            let subject = Hometask3.subtask5 18
+            let subject = Hometask3.fibMultMatricesFaster 18
             Expect.equal subject 2584 "result must be equal to 2584"
 
         testCase "evals 10th fib number" <| fun _ ->
-            let subject = Hometask3.subtask5 10
+            let subject = Hometask3.fibMultMatricesFaster 10
             Expect.equal subject 55 "result must be equal to 55"
 
         testCase "evals 9th fib number" <| fun _ ->
-            let subject = Hometask3.subtask5 9
+            let subject = Hometask3.fibMultMatricesFaster 9
             Expect.equal subject 34 "result must be equal to 34"
 
         testCase "evals 5th fib number" <| fun _ ->
-            let subject = Hometask3.subtask5 5
+            let subject = Hometask3.fibMultMatricesFaster 5
             Expect.equal subject 5 "result must be equal to 5"
 
         testCase "evals 4th fib number" <| fun _ ->
-            let subject = Hometask3.subtask5 4
+            let subject = Hometask3.fibMultMatricesFaster 4
             Expect.equal subject 3 "result must be equal to 3"
 
         testCase "evals 1st fib number" <| fun _ ->
-            let subject = Hometask3.subtask5 1
+            let subject = Hometask3.fibMultMatricesFaster 1
             Expect.equal subject 1 "result must be equal to 1"
             
         testCase "evals zero fib number" <| fun _ ->
-            let subject = Hometask3.subtask5 0
+            let subject = Hometask3.fibMultMatricesFaster 0
             Expect.equal subject 0 "result must be equal to 0"
 
         testCase "n is negative fib number" <| fun _ ->
-            Expect.throws (fun _ -> Hometask3.subtask4 -3 |> ignore) "expected n >= 0"
+            Expect.throws (fun _ -> Hometask3.fibByMultMatrices -3 |> ignore) "expected n >= 0"
     ]
     testList "Subtask 6: evals all fib numbers to n" [
 
         testCase "evals 0-3 fib number" <| fun _ ->
-            let subject = Hometask3.subtask6 3
+            let subject = Hometask3.puttingAllFibNumbersInListToN 3
             Expect.equal subject [0;1;1;2] "result must be equal to list with fib numbers from 0 to 3"
 
         testCase "evals 0-5 fib number" <| fun _ ->
-            let subject = Hometask3.subtask6 5
+            let subject = Hometask3.puttingAllFibNumbersInListToN 5
             Expect.equal subject [0;1;1;2;3;5] "result must be equal to list with fib numbers from 0 to 5"
 
         testCase "evals 0-9 fib number" <| fun _ ->
-            let subject = Hometask3.subtask6 9
+            let subject = Hometask3.puttingAllFibNumbersInListToN 9
             Expect.equal subject [0;1;1;2;3;5;8;13;21;34] "result must be equal to list with fib numbers from 0 to 9"
 
         testCase "evals 0-13 fib number" <| fun _ ->
-            let subject = Hometask3.subtask6 13
+            let subject = Hometask3.puttingAllFibNumbersInListToN 13
             Expect.equal subject [0;1;1;2;3;5;8;13;21;34;55;89;144;233] "result must be equal to list with fib numbers from 0 to 13"
 
         testCase "n is negative fib number" <| fun _ ->
-            Expect.throws (fun _ -> Hometask3.subtask6 -3 |> ignore) "expected n >= 0"
+            Expect.throws (fun _ -> Hometask3.puttingAllFibNumbersInListToN -3 |> ignore) "expected n >= 0"
     ]
 ]
 [<Tests>]
@@ -217,14 +217,14 @@ let propertytests =
     testList "Property tests"
         [           
             testProperty "Subtask1 = Subtask2" 
-                <| fun (n: int) -> Expect.equal (Hometask3.subtask1 (abs n % 40)) (Hometask3.subtask2 (abs n % 40)) "Fib1 must be equal to Fib4"
+                <| fun (n: int) -> Expect.equal (Hometask3.fibRec (abs n % 40)) (Hometask3.fibIter (abs n % 40)) "Fib1 must be equal to Fib4"
                 
             testProperty "Subtask2 = Subtask3" 
-                <| fun (n: int) -> Expect.equal (Hometask3.subtask2 (abs n % 40)) (Hometask3.subtask3 (abs n % 40)) "Fib2 must be equal to Fib3"
+                <| fun (n: int) -> Expect.equal (Hometask3.fibIter (abs n % 40)) (Hometask3.fibTailRec (abs n % 40)) "Fib2 must be equal to Fib3"
 
             testProperty "Subtask3 = Subtask4" 
-                <| fun (n: int) -> Expect.equal (Hometask3.subtask3 (abs n % 40)) (Hometask3.subtask4 (abs n % 40)) "Fib3 must be equal to Fib4"
+                <| fun (n: int) -> Expect.equal (Hometask3.fibTailRec (abs n % 40)) (Hometask3.fibByMultMatrices (abs n % 40)) "Fib3 must be equal to Fib4"
 
             testProperty "Subtask4 = Subtask5" 
-                <| fun (n: int) -> Expect.equal (Hometask3.subtask4 (abs n % 40)) (Hometask3.subtask5 (abs n % 40)) "Fib4 must be equal to Fib5"
+                <| fun (n: int) -> Expect.equal (Hometask3.fibByMultMatrices (abs n % 40)) (Hometask3.fibMultMatricesFaster (abs n % 40)) "Fib4 must be equal to Fib5"
         ]

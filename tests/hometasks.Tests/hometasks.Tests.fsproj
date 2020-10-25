@@ -12,6 +12,7 @@
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="Expecto.FsCheck" Version="8.13.1" />
+      <PackageReference Include="Fake.DotNet.Paket" Version="5.20.3" />
       
     </ItemGroup>
     <ItemGroup>
