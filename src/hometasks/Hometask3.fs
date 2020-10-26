@@ -6,7 +6,7 @@ module Hometask3 =
         if n < 0 then failwith "expected n >= 0"
         match n with
         | 0 -> 0
-        | 1 | 2 -> 1
+        | 1 -> 1
         | n -> fibRec (n - 1) + fibRec (n - 2)
 
 
@@ -16,7 +16,7 @@ module Hometask3 =
         else
             let mutable fibPrevPrev = 0
             let mutable fibPrev = 1
-            let mutable fibCurr = 1
+            let mutable fibCurr = fibPrev + fibPrevPrev
             let mutable i = 1
             while i <> n do
                 fibCurr <- fibPrevPrev + fibPrev
@@ -67,21 +67,18 @@ module Hometask3 =
             let rows = matrix.[0,*].Length
             let columns = matrix.[*,0].Length
             if rows = columns
-            then
-                createIdentityMatrix rows
-            else
-                failwith "Matrix can't have zero power if it isn't square"
+            then createIdentityMatrix rows
+            else failwith "Matrix can't have zero power if it isn't square"
         else
             let mutable result = createIdentityMatrix matrix.[0,*].Length
             for i = 1 to power do
                 result <- matrixMultiply result matrix
             result
              
-
+    // factorizing n to a powers of 2
     let factorization n =
         if n <= 0
-        then
-            failwith "Expected n >= 0"
+        then failwith "Expected n >= 0"
         let mutable result = []
         let mutable i = n
         while i > 0 do
@@ -99,7 +96,8 @@ module Hometask3 =
         if pow = 0 then matrix
         else matrixPow (matrixBinPow matrix (pow - 1)) 2
 
-
+    // creating an array of differences between adjacent elements in order not to raise the next matrix to a pow again in matrixBinPow,
+    // but only to multiply by the matrix ^ difference between the calculated and the new one
     let diffBetweenPairs (xs: list<int>) =
         if xs.Length < 2 then failwith "expected length >= 2" 
         let pairs = Seq.zip xs.[1..] xs
@@ -108,8 +106,7 @@ module Hometask3 =
 
     let fastMatrixPow n (matrix: int[,]) =
         let factors = factorization n
-        if factors.Length = 1 then
-            matrixBinPow matrix factors.[0]
+        if factors.Length = 1 then matrixBinPow matrix factors.[0]
         else
             let mutable x = matrixBinPow matrix factors.[0]
             let difference = diffBetweenPairs factors
@@ -123,10 +120,9 @@ module Hometask3 =
 
     let fibByMultMatrices n =
         if n < 0
-        then
-            failwith "expected n >= 0"
+        then failwith "expected n >= 0"
         else
-            let fibMatrix = array2D [ [ 0; 1]; [1; 1] ]
+            let fibMatrix = array2D [ [0; 1]; [1; 1] ]
             let result = matrixPow fibMatrix n
             result.[0, 1]
 
@@ -135,18 +131,18 @@ module Hometask3 =
         if n < 0 then failwith "expected n >= 0"
         elif n = 0 then 0
         else
-             let fibMatrix = array2D [ [ 0; 1]; [1; 1] ]
+             let fibMatrix = array2D [ [0; 1]; [1; 1] ]
              let result = fastMatrixPow n fibMatrix
              result.[0, 1]
 
 
     let fibNumbersToN n =
         if n < 0 then failwith "expected n >= 0"
-        if n = 0 then [0]
-        elif n = 1 then [0; 1]
-        else 
-            let mutable fibList = [1; 0]
-            for i = 2 to n do 
-                fibList <- (fibList.[0] + fibList.[1]) :: fibList
-            List.rev fibList
+        let rec loop acc1 acc2 n =
+            match n with
+            | 0 -> []
+            | n -> acc1 :: loop acc2 (acc1 + acc2) (n - 1)
+        
+        loop 0 1 (n+1)
+
 
