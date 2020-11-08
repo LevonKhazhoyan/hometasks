@@ -40,6 +40,13 @@ module Main =
             let parser = ArgumentParser.Create<CLIArguments>(programName = "Hometasks")
             try 
             let results = parser.Parse argv
+
+            let readFuncs f =
+                printf "enter the number: "
+                let n = Console.ReadLine() |> int
+                let result = f n
+                printfn "the result of doing ex. = %A" result
+
             if results.Contains Subtask1_1 then
     
                 printf "Enter the number: "
@@ -95,41 +102,19 @@ module Main =
                 let result = hometasks.Hometask2.subtask6 randomArray i j
                 printfn "Changed array: "
                 printfn "%A" result
-        
-            elif results.Contains Subtask1_2 then
 
-                let n = results.GetResult (Subtask1_2)
-                let result = Hometask3.fibRec n
-                printf "result: "
-                printfn "%A" result
-            elif results.Contains Subtask2_2 then
+            elif results.Contains Subtask1_2 then readFuncs Hometask3.fibIter
 
-                let n = results.GetResult (Subtask2_2)
-                let result = Hometask3.fibIter n
-                printf "result: "
-                printfn "%A" result
-            elif results.Contains Subtask3_2 then
+            elif results.Contains Subtask2_2 then readFuncs Hometask3.fibRec
+             
+            elif results.Contains Subtask3_2 then readFuncs Hometask3.fibTailRec
 
-                let n = results.GetResult (Subtask3_2)
-                let result = Hometask3.fibTailRec n
-                printf "result: "
-                printfn "%A" result
-            elif results.Contains Subtask4_2 then
+            elif results.Contains Subtask4_2 then readFuncs Hometask3.fibByMultMatrices
 
-                let n = results.GetResult (Subtask4_2)
-                let result = Hometask3.fibByMultMatrices n
-                printf "result: "
-                printfn "%A" result
-            elif results.Contains Subtask5_2 then
-                let n = results.GetResult (Subtask5_2)
-                let result = Hometask3.fibMultMatricesFaster n
-                printf "result: "
-                printfn "%A" result
-            elif results.Contains Subtask6_2 then
+            elif results.Contains Subtask5_2 then readFuncs Hometask3.fibMultMatricesFaster
 
-                let n = results.GetResult (Subtask6_2)
-                let result = Hometask3.fibNumbersToN  n
-                printfn "%A" result    
+            elif results.Contains Subtask6_2 then readFuncs Hometask3.fibNumbersToN
+               
             else
                 parser.PrintUsage() |> printfn "%s"
             0

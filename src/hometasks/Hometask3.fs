@@ -143,6 +143,6 @@ module Hometask3 =
             | 0 -> []
             | n -> acc1 :: loop acc2 (acc1 + acc2) (n - 1)
         
-        loop 0 1 (n+1)
+        loop 0 1 (n + 1)
 
 
