@@ -36,17 +36,26 @@ module Main =
 
         let readFuncs f1 f2 f3 =
             printfn "Enter path to input file"
-            let input = Console.ReadLine () |> string
+            let input = Console.ReadLine () 
             printfn "Enter path to output file"
-            let output = Console.ReadLine () |> string
-            let result = f1 (f2 (input))
+            let output = Console.ReadLine () 
+            let result = f1 (f2 input)
             f3 output result
 
-        if results.Contains BubbleSortArray then readFuncs hometask4.bubbleSortArray hometask4.readArray hometask4.writeArray
-        elif results.Contains BubbleSortList then readFuncs hometask4.bubbleSortList hometask4.readList hometask4.writeList
-        elif results.Contains QuickSortArray then readFuncs hometask4.quickSortArray hometask4.readArray hometask4.writeArray
-        elif results.Contains QuickSortList then readFuncs hometask4.quickSortList hometask4.readList hometask4.writeList
-        elif results.Contains QuickSortListWithFilters then readFuncs hometask4.quickSortListWithFilters hometask4.readList hometask4.writeList
+        if results.Contains BubbleSortArray
+        then readFuncs hometask4.bubbleSortArray hometask4.readArray hometask4.writeArray
+
+        elif results.Contains BubbleSortList
+        then readFuncs hometask4.bubbleSortList hometask4.readList hometask4.writeList
+
+        elif results.Contains QuickSortArray
+        then readFuncs hometask4.quickSortArray hometask4.readArray hometask4.writeArray
+
+        elif results.Contains QuickSortList
+        then readFuncs hometask4.quickSortList hometask4.readList hometask4.writeList
+
+        elif results.Contains QuickSortListWithFilters
+        then readFuncs hometask4.quickSortListWithFilters hometask4.readList hometask4.writeList
 
         elif results.Contains Pack32Into64 then
             printfn "Enter two int32 numbers: "

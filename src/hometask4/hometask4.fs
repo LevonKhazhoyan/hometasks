@@ -7,16 +7,16 @@ module hometask4 =
 
     let readArray file =
         let lines = System.IO.File.ReadAllLines file
-        [|for i in lines -> int (i.Trim())|]
-        
+        lines
+        |> Array.map (fun x -> int (x.Trim())) 
+
     let readList file =
-        let lines = System.IO.File.ReadAllLines file
-        [for i in lines -> int (i.Trim())]
+        readArray file |> Array.toList
 
     let writeArray file array = System.IO.File.WriteAllLines (file, arrayOfIntIntoArrayOfStrings array)
     let writeList file list = System.IO.File.WriteAllLines (file, arrayOfIntIntoArrayOfStrings (List.toArray list))
 
-    let bubbleSortArray (xs: array<int>) =
+    let bubbleSortArray (xs: array<_>) =
         if xs.Length >= 2 then
             let mutable swapped = true
             let mutable temp = 0
@@ -31,29 +31,26 @@ module hometask4 =
                         swapped <- true
         xs
 
-    let bubbleSortList (xs: list<int>) =
+    let bubbleSortList (xs: list<_>) =
         let rec loop xs = 
             match xs with
             | first :: second :: rest -> 
-                if first > second then
-                    second :: loop (first :: rest)
-                else  
-                    first :: loop (second :: rest)
+                if first > second
+                then second :: loop (first :: rest)
+                else first :: loop (second :: rest)
             | x -> x 
      
-        let rec tailRec (xs: list<int>) a =
+        let rec tailRec (xs: list<_>) a =
             if a = xs.Length
-            then
-                xs
-            else
-                tailRec (loop xs) (a + 1)
+            then xs
+            else tailRec (loop xs) (a + 1)
 
         tailRec xs 0
 
 
-    let quickSortArray (xs: array<int>) =
+    let quickSortArray (xs: array<_>) =
 
-        let partition (xs: array<int>) l r =
+        let partition (xs: array<_>) l r =
             let pivot = xs.[r]
             let mutable m = l - 1
             let mutable temp = 0
@@ -69,7 +66,7 @@ module hometask4 =
             xs.[r] <- temp
             m + 1
     
-        let rec loop (xs: array<int>) l r =
+        let rec loop (xs: array<_>) l r =
             if l < r
             then
                 let m = partition xs l r
@@ -81,7 +78,7 @@ module hometask4 =
         xs
 
 
-    let quickSortList (xs: list<int>)  =
+    let quickSortList (xs: list<_>)  =
 
         let partition compare xs =
             let rec loop lst smaller larger =
@@ -104,7 +101,7 @@ module hometask4 =
 
         score xs
 
-    let quickSortListWithFilters (xs: list<int>) =
+    let quickSortListWithFilters (xs: list<_>) =
         let rec qsort xs =
             match xs with
             | [] -> []
