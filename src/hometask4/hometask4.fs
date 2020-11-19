@@ -114,26 +114,26 @@ module hometask4 =
                 
         qsort xs
     
-    let packing32To64 (a: int32, b: int32) =
+    let packing32To64 (a, b) =
         if b >= 0
         then (a |> int64 <<< 32) + (b |> int64)
         else (a |> int64 <<< 32) + 4294967296L + (b |> int64)
     
-    let packing16To32 (a: int16, b: int16) =
+    let packing16To32 (a, b) =
         if b >= 0s
         then (int32 a <<< 16) + (int32 b)
         else (int32 a <<< 16) + 65536 + (int32 b)
     
-    let packing16To64 (a: int16, b: int16, c: int16, d: int16) =
+    let packing16To64 (a, b, c, d) =
         packing32To64 (packing16To32 (a, b), packing16To32 (c, d))
     
-    let unpacking64To32 (a: int64) =
+    let unpacking64To32 (a) =
         (a >>> 32 |> int, (a <<< 32) >>> 32 |> int)
     
-    let unpacking32To16 (a: int32) =
+    let unpacking32To16 (a) =
         (a >>> 16 |> int16, (a <<< 16) >>> 16 |> int16)
 
-    let unpacking64To16 (a: int64) =
+    let unpacking64To16 (a) =
         let ab, cd = unpacking64To32 a
         let res1, res2 = unpacking32To16 ab
         let res3, res4 = unpacking32To16 cd

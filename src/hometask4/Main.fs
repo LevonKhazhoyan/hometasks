@@ -57,20 +57,23 @@ module Main =
         elif results.Contains QuickSortListWithFilters
         then readFuncs hometask4.quickSortListWithFilters hometask4.readList hometask4.writeList
 
-        elif results.Contains Pack32Into64 then
+        elif results.Contains Pack32Into64
+        then
             printfn "Enter two int32 numbers: "
             let x = Console.ReadLine () |> int32
             let y = Console.ReadLine () |> int32
             let result = hometask4.packing32To64 (x, y)
             printfn "%A" result
 
-        elif results.Contains Unpack64Into32 then
+        elif results.Contains Unpack64Into32
+        then
             printfn "Enter int64 number: "
             let x = Console.ReadLine () |> int64
             let result = hometask4.unpacking64To32 x
             printfn "%A" result
 
-        elif results.Contains Pack16Into64 then
+        elif results.Contains Pack16Into64
+        then
             printfn "Enter four int16 numbers:"
             let x = Console.ReadLine () |> int16
             let y = Console.ReadLine () |> int16
@@ -79,7 +82,8 @@ module Main =
             let result = hometask4.packing16To64 (x, y, z, a)
             printfn "%A" result
 
-        elif results.Contains Unpack64Into16 then
+        elif results.Contains Unpack64Into16
+        then
             printfn "Enter int64 number: "
             let x = Console.ReadLine () |> int64
             let result = hometask4.unpacking64To16 x
