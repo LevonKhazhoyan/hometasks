@@ -119,7 +119,7 @@ module hometask4 =
         then (a |> int64 <<< 32) + (b |> int64)
         else (a |> int64 <<< 32) + 4294967296L + (b |> int64)
     
-    let packing16To32 (a, b) =
+    let packing16To32 (a: int16, b) =
         if b >= 0s
         then (int32 a <<< 16) + (int32 b)
         else (int32 a <<< 16) + 65536 + (int32 b)
@@ -127,8 +127,8 @@ module hometask4 =
     let packing16To64 (a, b, c, d) =
         packing32To64 (packing16To32 (a, b), packing16To32 (c, d))
     
-    let unpacking64To32 (a) =
-        (a >>> 32 |> int, (a <<< 32) >>> 32 |> int)
+    let unpacking64To32 (a: int64) =
+        (a >>> 32 |> int32, (a <<< 32) >>> 32 |> int32)
     
     let unpacking32To16 (a) =
         (a >>> 16 |> int16, (a <<< 16) >>> 16 |> int16)
