@@ -46,7 +46,7 @@ module hometask6
                 [for i in matrix1.Coordinates do
                     for j in matrix2.Coordinates do
                     if int i.J = int j.I then Coordinate (i.I, j.J)]
-            Matrix (matrix1.Rows, matrix2.Cols, lst)
+            Matrix (matrix1.Rows, matrix2.Cols, List.distinct lst)
 
 
     let boolSparseMatrixToArrayOfStrings (matrix: Matrix) =
