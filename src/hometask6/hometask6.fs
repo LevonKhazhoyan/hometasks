@@ -25,6 +25,7 @@ module hometask6
         if lengths.Length > 1 then failwith "Expected valid matrix size"
 
 
+
     let readBoolMatrix file =
         let matrixToListOfCoords (str: string) (i, lst) =
             str.Split ' ' |> Array.fold (fun (j, lst) c ->
