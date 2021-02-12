@@ -17,12 +17,15 @@ let propTestsForMyList =
                 let lst = genRandomList x |> List.map (fun y -> string y)
                 let str = List.fold (fun w z -> w + z) "" lst
                 Expect.sequenceEqual (lst |> listToMyList |> MyList.fold (fun w z -> w + z) "") str "Expected Folded List"
+
             testProperty "Length test" <| fun x ->
                 let lst = genRandomList x
                 Expect.equal (List.length lst) (lst |> listToMyList |> len) "Expected Length of list"
+
             testProperty "Sort test" <| fun x ->
                 let lst = genRandomList x
                 Expect.equal (List.sort lst |> listToMyList) (bubbleSort (lst |> listToMyList)) "Expected Sorted list"
+
             testProperty "Iter test" <| fun x ->
                 let lst = genRandomList x
                 let a = Array.zeroCreate lst.Length
@@ -32,9 +35,11 @@ let propTestsForMyList =
                     a.[c] <- x
                     c <- c + 1) (listToMyList lst)
                 Expect.sequenceEqual a b "Expected Iter"
+
             testProperty "Map test" <| fun x ->
                 let lst = genRandomList x
                 Expect.equal (List.map (fun i -> i * 7) lst |> listToMyList) (map (fun i -> i * 7) (listToMyList lst)) "Expected Mapped list"
+
             testProperty "Concatenate test" <| fun (x, y) ->
                 let lst1 = genRandomList x
                 let lst2 = genRandomList y
