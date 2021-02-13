@@ -38,15 +38,18 @@ let bubbleSort xs =
     let rec loop xs = 
         match xs with
         | Cons (first,One second) ->
-            if first > second then Cons (second, One first)
+            if first > second
+            then Cons (second, One first)
             else Cons (first, One second )
         | Cons (first, Cons (second, rest)) -> 
-            if first > second then Cons (second, loop (Cons (first, rest)))
+            if first > second
+            then Cons (second, loop (Cons (first, rest)))
             else Cons (first, loop (Cons (second, rest)))
         | One x -> One x 
     
     let rec tailRec xs a =
-        if a = len xs then xs
+        if a = len xs
+        then xs
         else tailRec (loop xs) (a + 1)
 
     tailRec xs 0
@@ -58,7 +61,7 @@ let listToMyList l =
     | h :: tail -> List.fold (fun list x -> Cons(x, list)) (One h) tail  
 
 let myListToList myLst =
-        fold (fun list x -> list @ [x]) [] myLst
+        List.rev(fold (fun list x ->  [x] @ list) [] myLst)
 
 let stringToMyString str: MyString =
         listToMyList (Seq.toList str)
