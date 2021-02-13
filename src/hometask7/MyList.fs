@@ -57,7 +57,7 @@ let bubbleSort xs =
 let listToMyList l =
     match List.rev l with
     | [] -> failwith "List is empty"
-    | h when h.Length = 1 -> One l.[0]
+    | h :: [] -> One h
     | h :: tail -> List.fold (fun list x -> Cons(x, list)) (One h) tail  
 
 let myListToList myLst =
