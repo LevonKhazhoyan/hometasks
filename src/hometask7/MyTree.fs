@@ -17,4 +17,4 @@ let max tree =
 
 let average tree =
     let x, y = fold (fun (sum, count) x -> (sum + x, count + 1)) (0, 0) tree
-    float(x/y)
+    float (x/y)
