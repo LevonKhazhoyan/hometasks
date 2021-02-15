@@ -113,7 +113,7 @@ module hometask4 =
                 smaller @ equal @ larger
                 
         qsort xs
-    
+
     let packing32To64 (a, b) =
         if b >= 0
         then (a |> int64 <<< 32) + (b |> int64)
@@ -138,3 +138,5 @@ module hometask4 =
         let res1, res2 = unpacking32To16 ab
         let res3, res4 = unpacking32To16 cd
         (res1, res2, res3, res4)
+
+
