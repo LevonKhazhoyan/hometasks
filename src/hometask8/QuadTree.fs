@@ -36,7 +36,7 @@ type QuadTreeMtx<'t when 't : equality> =
                 | Node (v1, v2, v3, v4), Node (v5, v6, v7, v8) ->
                     let sum1, sum2, sum3, sum4 = _go v1 v5, _go v2 v6, _go v3 v7, _go v4 v8
                     if sum1 = None && sum2 = None && sum3 = None && sum4 = None then None
-                    else Node(_go v1 v5, _go v2 v6, _go v3 v7, _go v4 v8)
+                    else Node(sum1, sum2, sum3, sum4)
                 | _, _ -> failwith "can't sum matrices of diff size" // just to complete pattern matching
             _go x.Tree y.Tree
         else failwith "can't sum matrices of diff sizes"
@@ -75,20 +75,14 @@ type QuadTreeMtx<'t when 't : equality> =
         QuadTreeMtx(xs.NumOfRows, xs.NumOfCols, (_go (0, border - 1) (0, border - 1)))
 
     static member multiplyByScalar (xs: QuadTreeMtx<'t>) (semiRing: SemiRing<'t>) (a: 't) =
-        let rec _go (x: QuadTree<'t>) =
-            match x with
-            | Leaf v ->
-                let res = semiRing.Mul a v
-                if res = semiRing.Monoid.Neutral
-                then None
-                else Leaf res
-            | Node (v1, v2, v3, v4) ->
-                let v5, v6, v7, v8  = _go v1, _go v2, _go v3, _go v4
-                if v5 = None && v6 = None && v7 = None && v8 = None
-                then None
-                else Node (v5, v6, v7, v8)
-            | None -> None
-        QuadTreeMtx(xs.Rows,xs.Cols, _go xs.Tree)
+        if a = semiRing.Monoid.Neutral then QuadTreeMtx(xs.Rows, xs.Cols, None)
+        else
+            let rec _go (x: QuadTree<'t>) =
+                match x with
+                | Leaf v -> Leaf (semiRing.Mul a v)
+                | Node (v1, v2, v3, v4) -> Node(_go v1, _go v2, _go v3, _go v4)
+                | None -> None
+            QuadTreeMtx(xs.Rows, xs.Cols, _go xs.Tree)
 
     static member tensorMultiply (x: QuadTreeMtx<'t>) (y: QuadTreeMtx<'t>) (semiRing: SemiRing<'t>) =
         let rec _go (xs: QuadTree<'t>) =
