@@ -17,28 +17,32 @@ type QuadTree<'t when 't : equality> =
     | Leaf of 't
     | Node of QuadTree<'t> * QuadTree<'t> * QuadTree<'t> * QuadTree<'t>
 
+    static member checkForNone (x:QuadTree<'t>) (monoid: Monoid<'t>) =
+        match x with
+        | Node (None, None, None, None) -> None
+        | Node (a, b, c, d) -> Node(a, b, c, d)
+        | Leaf a when a = monoid.Neutral -> None
+        | Leaf a -> Leaf a
+        | None -> None
+
 type QuadTreeMtx<'t when 't : equality> =
     val Rows: int
     val Cols: int
     val Tree: QuadTree<'t>
     new(r,c,t) = {Rows = r; Cols = c; Tree = t}
-
+        
     static member sum (x: QuadTreeMtx<'t>) (y: QuadTreeMtx<'t>) (monoid: Monoid<'t>) =
         if x.Rows = y.Rows && x.Cols = y.Cols then
             let rec _go x y =
                 match x, y with
                 | Leaf a, Leaf b ->
-                    let res = monoid.Sum a b
-                    if res = monoid.Neutral then None
-                    else Leaf res
+                    QuadTree.checkForNone (Leaf (monoid.Sum a b)) monoid
                 | None, a -> a
                 | a, None -> a
                 | Node (v1, v2, v3, v4), Node (v5, v6, v7, v8) ->
-                    let sum1, sum2, sum3, sum4 = _go v1 v5, _go v2 v6, _go v3 v7, _go v4 v8
-                    if sum1 = None && sum2 = None && sum3 = None && sum4 = None then None
-                    else Node(sum1, sum2, sum3, sum4)
+                    QuadTree.checkForNone (Node(_go v1 v5, _go v2 v6, _go v3 v7, _go v4 v8)) monoid
                 | _, _ -> failwith "can't sum matrices of diff size" // just to complete pattern matching
-            _go x.Tree y.Tree
+            QuadTreeMtx(x.Rows, y.Cols, _go x.Tree y.Tree)
         else failwith "can't sum matrices of diff sizes"
 
     static member convert (xs: QuadTreeMtx<'t>) = 

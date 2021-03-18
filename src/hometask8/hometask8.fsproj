@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿    <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -9,11 +9,14 @@
     <Compile Include="AlgebraicStructure.fs" />
     <Compile Include="SparseMatrix.fs" />
     <Compile Include="QuadTree.fs" />
-    <Compile Include="Main.fs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Argu" Version="6.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\hometask7\hometask7.fsproj" />
   </ItemGroup>
 
 </Project>
