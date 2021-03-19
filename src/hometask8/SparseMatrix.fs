@@ -1,6 +1,5 @@
 module SparseMatrix
 
-open AlgebraicStructure
 open System
 open System.Collections.Generic
 

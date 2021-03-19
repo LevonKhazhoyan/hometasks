@@ -17,13 +17,13 @@ type QuadTree<'t when 't : equality> =
     | Leaf of 't
     | Node of QuadTree<'t> * QuadTree<'t> * QuadTree<'t> * QuadTree<'t>
 
-    static member checkForNone (x:QuadTree<'t>) (monoid: Monoid<'t>) =
-        match x with
-        | Node (None, None, None, None) -> None
-        | Node (a, b, c, d) -> Node(a, b, c, d)
-        | Leaf a when a = monoid.Neutral -> None
-        | Leaf a -> Leaf a
-        | None -> None
+    static member nodeCheckForNone (x1:QuadTree<'t>, x2:QuadTree<'t>, x3:QuadTree<'t>, x4:QuadTree<'t>) =
+        if x1 = None && x2 = None && x3 = None && x4 = None then None
+        else Node (x1, x2, x3, x4)
+
+    static member LeafCheckForNone (x:'t) (monoid: Monoid<'t>) =
+        if x = monoid.Neutral then None
+        else Leaf x
 
 type QuadTreeMtx<'t when 't : equality> =
     val Rows: int
@@ -36,11 +36,11 @@ type QuadTreeMtx<'t when 't : equality> =
             let rec _go x y =
                 match x, y with
                 | Leaf a, Leaf b ->
-                    QuadTree.checkForNone (Leaf (monoid.Sum a b)) monoid
+                    QuadTree.LeafCheckForNone (monoid.Sum a b) monoid
                 | None, a -> a
                 | a, None -> a
                 | Node (v1, v2, v3, v4), Node (v5, v6, v7, v8) ->
-                    QuadTree.checkForNone (Node(_go v1 v5, _go v2 v6, _go v3 v7, _go v4 v8)) monoid
+                    QuadTree.nodeCheckForNone (_go v1 v5, _go v2 v6, _go v3 v7, _go v4 v8 )
                 | _, _ -> failwith "can't sum matrices of diff size" // just to complete pattern matching
             QuadTreeMtx(x.Rows, y.Cols, _go x.Tree y.Tree)
         else failwith "can't sum matrices of diff sizes"
@@ -92,10 +92,6 @@ type QuadTreeMtx<'t when 't : equality> =
         let rec _go (xs: QuadTree<'t>) =
             match xs with
             | Leaf v -> (QuadTreeMtx.multiplyByScalar y semiRing v).Tree
-            | Node (v1, v2, v3, v4) ->
-                let v5, v6, v7, v8  = _go v1, _go v2, _go v3, _go v4
-                if v5 = None && v6 = None && v7 = None && v8 = None
-                then None
-                else Node (v5, v6, v7, v8)
+            | Node (v1, v2, v3, v4) -> QuadTree.nodeCheckForNone (_go v1, _go v2, _go v3, _go v4)
             | None -> None
         QuadTreeMtx(x.Rows * y.Rows, x.Cols * y.Cols, _go x.Tree)

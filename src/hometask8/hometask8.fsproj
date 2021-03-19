@@ -1,7 +1,7 @@
 ﻿    <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
@@ -13,10 +13,6 @@
 
   <ItemGroup>
     <PackageReference Include="Argu" Version="6.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\hometask7\hometask7.fsproj" />
   </ItemGroup>
 
 </Project>
