@@ -2,6 +2,7 @@ namespace hometasks
 
 module Hometask2 =
    let subtask1 x =
+
        x * x * x * x + x * x * x + x * x + x + 1.0
 
    let subtask2 x =
